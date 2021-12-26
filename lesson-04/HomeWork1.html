@@ -1,0 +1,65 @@
+<!-- Доработайте пример, 005_thisExample.html, при наведении мыши к одному из блоков, цвет блока должен измениться, на уникальный, такой которого еще нету у существующих блоков.
+Также выведите в блок текстовое оповещение о информации цвета, который используется для фона данного блока.
+При попытке закрыть вкладку, придупредите пользователя о том что информация будет утеряна. Используйте window.onload.  -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ключевое слово this</title>
+    <style>
+        div {
+            background-color: green;
+            display: inline-block;
+            height: 100px;
+            width: 100px;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<script>
+    window.onload = function () {
+        let divArr = document.getElementsByTagName("div");
+
+        for (let i = 0; i < divArr.length; i++) {
+            divArr[i].onclick = function () {
+                setColor(this, "red");
+            }
+
+            divArr[i].onmouseover = function () {
+                setColor(this, '#' + hexChanelRandom() + hexChanelRandom() + hexChanelRandom());
+            }
+        }
+    }
+
+    function setColor(element, colorCode) {
+        element.style.backgroundColor = colorCode;
+        element.innerHTML = colorCode;
+    }
+
+    function hexChanelRandom() {
+        let byteMax = 256;
+        let randomFloat = Math.random() * byteMax;
+        let randomInt = Number.parseInt(randomFloat.toFixed(0));
+        let randomIntHexStr = randomInt.toString(16);
+
+        return randomIntHexStr.length === 1 ? '0' + randomIntHexStr : randomIntHexStr;
+    }
+
+
+    function onbeforeunloadHandler() {
+        window.onbeforeunload = function() { // событие на закрытие вкладки
+            // Наличие return обязательно для срабатывания события
+            return 0;
+        };
+    }
+
+</script>
+<button onclick="onbeforeunloadHandler()">Установить событие</button>
+</body>
+</html>
