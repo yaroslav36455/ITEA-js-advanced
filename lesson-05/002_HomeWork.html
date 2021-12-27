@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Homework</title>
+</head>
+<body>
+    <!--
+    1. Создайте 5 блоков с текстом. Добавьте в каждый из блоков кнопку для его удаления.
+    Используйте только один обработчик.
+
+    2. Доработайте пример 004_Attr_Tech.html таким образом, чтобы при наведении на span элементы,
+    подсказка сплыва под ними, а не в модальном окне. Используйте addEventListener -->
+
+    <div id="task-one">
+        <div>
+            Блок А
+            <button>Удалить</button>
+        </div>
+        <div>
+            Блок B
+            <button>Удалить</button>
+        </div>
+        <div>
+            Блок C
+            <button>Удалить</button>
+        </div>
+        <div>
+            Блок D
+            <button>Удалить</button>
+        </div>
+        <div>
+            Блок E
+            <button>Удалить</button>
+        </div>
+    </div>
+
+    <div id="task-two">
+        <span data-tooltip="наведите">наведите</span>
+        <span data-tooltip="для">для</span>
+        <span data-tooltip="подсказки">подсказки</span>
+    </div>
+
+
+    <script>
+        window.addEventListener('load', function (){
+            // task-one begin
+            let buttons = document.querySelectorAll('#task-one button');
+
+            for (let button of buttons) {
+                button.addEventListener('click', removeBlock);
+            }
+            function removeBlock(event) {
+                event.target.parentElement.remove();
+            }
+            // task-one end
+
+            // second begin
+            let taskTwo = document.getElementById("task-two");
+            const tooltipId = 'tooltip';
+
+            for (let ch of taskTwo.children) {
+                ch.addEventListener('mouseenter', setTooltip)
+                ch.addEventListener('mousemove', moveTooltip)
+                ch.addEventListener('mouseleave', removeTooltip);
+            }
+
+            function setTooltip(e) {
+                let target = e && e.target || window.event.srcElement;
+                let dataToggleId = target.getAttribute('data-tooltip');
+                if (!dataToggleId) {
+                    return;
+                }
+
+                document.body.appendChild(createTooltip(dataToggleId, e.clientX, e.clientY));
+            }
+
+            function removeTooltip() {
+                let elementById = document.getElementById(tooltipId);
+                if (elementById) {
+                    elementById.remove();
+                }
+            }
+
+            function moveTooltip(e) {
+                let elementById = document.getElementById(tooltipId);
+                if (elementById) {
+                    elementById.style.top = e.clientY + 1 + 'px';
+                    elementById.style.left = e.clientX + 1 + 'px';
+                    /* +1 необходим чтобы tooltip не подлазил под курсор. Это часто приводит к несрабатыванию события moveTooltip */
+                }
+            }
+
+            function createTooltip(word, x, y) {
+                let toolTip = document.createElement("div");
+                toolTip.style.border = 'black dotted';
+                toolTip.style.fontSize = '20px';
+                toolTip.style.position = 'absolute';
+                toolTip.style.top = y + 'px';
+                toolTip.style.left = x + 'px';
+                toolTip.id = tooltipId;
+                toolTip.innerText = word;
+                return toolTip;
+            }
+            // second end
+        })
+
+
+    </script>
+</body>
+</html>
