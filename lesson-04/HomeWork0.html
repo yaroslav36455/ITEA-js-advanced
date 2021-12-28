@@ -1,0 +1,34 @@
+<!-- Напишите регулярные выражения, которые будут выбирать 
+    индекс - 55535 - 5 numbers
+    ip адресс, пример 255.255.255.255
+    цены в долларах - $0.84, $1232.84, $4
+    дата в виде - 30/12/2016 - день, месяц, год
+ -->
+ <!DOCTYPE html>
+ <html lang="en">
+ <head>
+ 	<meta charset="UTF-8">
+ 	<title>Document</title>
+ </head>
+ <body>
+    <div id="dolorem">
+        Lorem ipsum30/12/2016 016.255.00.255dolor $00.84 $0.84 sit amet 25/03/2019 55555cons255.255.255.255ec17.3.12.90tetur adipisicing elit. Fuga deserunt 48961 rerum atque vero $1232.84 soluta error illo, 56.34.34.56 mollitia hic necessitatibus$4 harum 33125 ipsam veniam! Placeat cumque tempore voluptatibus velit quo quasi 01/01/202501/01/0000 dolores.
+    </div>
+
+ 	<script type="text/javascript">
+        let str = document.getElementById("dolorem").innerText;
+
+        let indexRegexp = new RegExp("\\d{5}", "g");
+        console.log(str.match(indexRegexp));
+
+        let ipRegexp = new RegExp("(([1-2][0-5][0-5]|[1-9][0-9]|[0-9])\\.){3}([1-2][0-5][0-5]|[1-9][0-9]|[0-9])", "g");
+        console.log(str.match(ipRegexp));
+
+        let moneyRegexp = new RegExp("\\$([1-9][0-9]+|[0-9])(\\.[0-9]+)?", "g");
+        console.log(str.match(moneyRegexp));
+
+        let dateRegexp = new RegExp("([0-2][1-9]|30|31)/(0[1-9]|11|12)/\\d{4}", "g");
+        console.log(str.match(dateRegexp));
+ 	</script>
+ </body>
+ </html>
