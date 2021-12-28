@@ -1,0 +1,39 @@
+<!--
+Создайте ссылку и див с текстом внутри, который изначально при загрузке страницы будет скрыт.
+При клике на ссылку див появляется, если повторно нажать ссылку див и текст должны пропасть.
+Также создайте кнопку, которая будет отменять выполнение обработчика клика по ссылке.
+ -->
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width,user-scalable=no">
+        <title>Title</title>
+    </head>
+    <body>
+    <a id="link" href="#">link</a>
+    <button id="btn-enable-link">Отключить переключатель</button>
+    <div id="div" hidden>
+        Создайте ссылку и див с текстом внутри, который изначально при загрузке страницы будет скрыт.
+        При клике на ссылку див появляется, если повторно нажать ссылку див и текст должны пропасть.
+        Также создайте кнопку, которая будет отменять выполнение обработчика клика по ссылке.
+    </div>
+
+    <script>
+        let link = document.getElementById("link");
+        let button = document.getElementById("btn-enable-link");
+
+        link.addEventListener('click', toggleDiv);
+        button.addEventListener('click', function (){
+            link.removeEventListener('click', toggleDiv);
+        })
+
+        function toggleDiv() {
+            let div = document.getElementById("div");
+            if (div) {
+                div.hidden = !div.hidden;
+            }
+        }
+    </script>
+    </body>
+</html>
